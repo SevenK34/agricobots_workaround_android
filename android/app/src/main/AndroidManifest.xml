@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <application
-        android:label="agricobots_workaround_android"
-        android:name="${applicationName}"
+        android:label="Agricobots"
+        android:name="Agribots"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

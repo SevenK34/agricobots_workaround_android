@@ -40,6 +40,8 @@ dependencies:
   device_info_plus: ^9.1.2
   flutter_local_notifications: ^16.3.2
   flutter_background_service: ^5.0.5
+  app_to_foreground: ^0.0.3
+  flutter_background_service_android: ^6.2.2
 
 dev_dependencies:
   flutter_test:

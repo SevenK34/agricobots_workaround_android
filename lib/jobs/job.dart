@@ -10,13 +10,19 @@ enum JobStatus { pending, acknowledge, inProgress, paused, completed }
 /// completed.
 class Job {
   JobStatus _jobStatus;
-  final String _jobName;
+  /// When the job was activated
+  DateTime activationTimestamp;
+  /// When the job was completed
+  DateTime completionTimestamp;
+  /// Unique ID of the job, given by the server
+  final int _jobId;
+  /// Description of the job and what the machine has to do
   final String _jobDescription;
+  // TODO: decide between macAddress and IMEI as unique identifier for the machine that is doing the job
   final _statusController = StreamController<JobStatus>.broadcast();
-  Job(this._jobStatus, this._jobName, this._jobDescription);
-
+  Job(this._jobStatus, this._jobId, this._jobDescription);
   // Getters
-  String get name => _jobName;
+  int get name => _jobId;
   String get description => _jobDescription;
   bool get isPending => _jobStatus == JobStatus.pending;
   bool get isAcknowledge => _jobStatus == JobStatus.acknowledge;
@@ -41,7 +47,7 @@ class Job {
   Map<String, dynamic> toMap() {
     return {
       'jobStatus': _jobStatus.index,
-      'jobName': _jobName,
+      'jobName': _jobId,
       'jobDescription': _jobDescription,
     };
   }

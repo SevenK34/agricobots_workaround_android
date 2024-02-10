@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:app_to_foreground/app_to_foreground.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
@@ -21,10 +22,11 @@ Future<void> initializeService() async {
   /// OPTIONAL, using custom notification channel id
   const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'my_foreground', // id
-    'MY FOREGROUND SERVICE', // title
+    'Agricobots service', // title
     description:
-        'This channel is used for important notifications.', // description
-    importance: Importance.high, // importance must be at low or higher level
+        'Questo canale è utilizzato per mantenere attivo il servizio.', // description
+    importance: Importance
+        .defaultImportance, // importance must be at low or higher level
   );
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -48,11 +50,9 @@ Future<void> initializeService() async {
     androidConfiguration: AndroidConfiguration(
       // this will be executed when app is in foreground or background in separated isolate
       onStart: onStart,
-
       // auto start service
       autoStart: true,
       isForegroundMode: true,
-
       notificationChannelId: 'my_foreground',
       initialNotificationTitle: 'AWESOME SERVICE',
       initialNotificationContent: 'Initializing',
@@ -142,6 +142,8 @@ void onStart(ServiceInstance service) async {
           title: "My App Service",
           content: "Updated at ${DateTime.now()}",
         );
+      } else {
+        AppToForeground.appToForeground();
       }
     }
 
